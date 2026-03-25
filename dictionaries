@@ -1,0 +1,6 @@
+d={"name":"Alex","age":11}
+print(d)
+d1=d.copy()
+print(d1)
+for i in d.items():
+ print(d[])
