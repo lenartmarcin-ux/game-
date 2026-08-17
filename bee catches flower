@@ -1,0 +1,32 @@
+HEIGHT = 600
+
+player1=Actor("bee",(100,300))
+player2=Actor("flower",(500,300))
+
+def draw():
+    screen.clear()
+    screen.fill("blue")
+    player1.draw()
+    player2.draw()
+    screen.draw.text("use arrow keys to move the bee",(10,10),color="black")
+
+def update():
+
+    if keyboard.left:
+        player1.x -= 5
+
+    if keyboard.right:
+        player1.x += 5
+
+    if keyboard.up:
+        player1.y -= 5
+
+    if keyboard.down:
+        player1.y += 5
+
+    # Collision detection
+    if player1.colliderect(player2):
+        print("Bee reached the flower!")
+
+
+pgzrun.go()
