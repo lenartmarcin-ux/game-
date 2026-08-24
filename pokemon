@@ -1,0 +1,39 @@
+import pgzero.screen
+import pgzrun
+
+WIDTH = 700
+HEIGHT = 700
+
+player1 = Actor("pikachu", (100, 300))
+player2 = Actor("ash", (500, 300))
+
+score = 0
+
+def draw():
+    screen.clear()
+    screen.fill("blue")
+    player1.draw()
+    player2.draw()
+    screen.draw.text("use arrow keys to move ash",(10,10),color="black")
+
+def update():
+    if keyboard.left:
+        player2.x -= 5
+
+    if keyboard.right:
+        player2.x += 5
+
+    if keyboard.up:
+        player2.y -= 5
+
+    if keyboard.down:
+        player2.y += 5
+
+
+    if player1.colliderect(player2):
+        score  = 1
+        print(f"Ash reached Pikachu! Score: {score + 1}")
+
+        player2.pos = (60, 500)
+
+pgzrun.go()
