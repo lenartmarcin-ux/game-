@@ -1,0 +1,42 @@
+def _get_nonempty(prompt):
+	while True:
+		val = input(prompt).strip()
+		if val:
+			return val
+		print("Please enter a value.")
+
+
+def _get_positive_int(prompt):
+	while True:
+		try:
+			n = int(input(prompt))
+			if n > 0:
+				return n
+			print("Enter a positive integer.")
+		except ValueError:
+			print("Invalid number. Please enter an integer.")
+
+
+def main():
+	print("Enter details for 5 groups that won prizes in different competitions.")
+	records = []
+	for i in range(1, 6):
+		print(f"\nGroup {i}:")
+		group_name = _get_nonempty("  Group name: ")
+		size = _get_positive_int("  Size of the group: ")
+		date = _get_nonempty("  Date of the competition (e.g. 2026-08-31): ")
+		venue = _get_nonempty("  Venue (school name): ")
+		medal = _get_nonempty("  Type of medal (Gold/Silver/Bronze): ")
+
+		
+		record = (group_name, size, date, venue, medal)
+		records.append(record)
+
+	print("\nRecorded entries (each is a tuple: (group_name, size, date, venue, medal)):")
+	for idx, rec in enumerate(records, 1):
+		print(f"{idx}. {rec}")
+
+
+if __name__ == "__main__":
+	main()
+
