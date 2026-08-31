@@ -1,0 +1,36 @@
+import pgzrun
+import random 
+from random import randint
+from time import time
+
+HEIGHT = 600
+WIDTH = 800
+
+satellite_x = 150
+satellite_y = 200
+
+def draw_satellite(x,y):
+    screen.draw.filled_rect( Rect((x, y), (250, 60)), "blue" ) 
+    screen.draw.filled_rect( Rect((x + 55, y + 5), (140, 50)), "gray" )
+
+def draw():
+    screen.fill("black")
+    draw_satellite(satellite_x, satellite_y)
+    draw_satellite(500, 300)
+    if abs(satellite_x-500)<125:
+        screen.draw.text("satellite is connected",center = (400, 100), fontsize = 40, color = "lime")
+
+def update():
+    global satellite_x, satellite_y
+    if keyboard.left:
+        satellite_x -= 5
+    if keyboard.right:
+        satellite_x += 5
+    if keyboard.up:
+        satellite_y -= 5
+    if keyboard.down:
+        satellite_y += 5
+
+
+pgzrun.go()
+
