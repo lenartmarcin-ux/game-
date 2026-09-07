@@ -1,0 +1,43 @@
+import pgzrun
+import random
+
+HEIGHT = 600
+WIDTH = 800
+
+correct = ["egg","tadpole","froglet","frog"]
+
+stage = correct.copy()
+buttons = [ Rect((50, 150), (110, 60)),
+ Rect((180, 150), (110, 60)),
+  Rect((310, 150), (110, 60)), 
+  Rect((440, 150), (110, 60)) ]
+
+random.shuffle(stage)	
+
+next_stage = 0
+score = 0
+message = "click the correct order of the frog's life cycle "
+
+def draw():
+ screen.fill("white")
+ screen.draw.text("Frog Life Cycle", center=(300, 50), fontsize=40, color=("black"))
+ screen.draw.text(message ,center=(300,100),fontsize=25,color=("black"))
+ screen.draw.text("score "+str(score),(20,20),fontsize=25,color=("black"))
+ for i in range(4):
+  screen.draw.filled_rect(buttons[i], "lightblue")
+  screen.draw.text(stage[i],center=buttons[i].center,fontsize=30,color=("black"))
+
+def on_mouse_down(pos):
+	global next_stage, score, message
+	for i in range(4):
+		if buttons[i].collidepoint(pos):
+			if stage[i] == correct[next_stage]:
+				score += 1
+				next_stage += 1
+				message = "correct! click the next stage"
+				if next_stage == 4:
+					message = "you completed the life cycle! your score is "+str(score)
+					next_stage = 0
+			else:
+				message = "wrong! try again"
+				score -= 1
