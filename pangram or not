@@ -1,0 +1,11 @@
+sentence = input("Enter a string: ")
+
+
+cleaned = ''.join(ch.lower() for ch in sentence if ch.isalpha())
+letters = set(cleaned)
+
+
+if len(letters) == 26:
+    print("The given string is a pangram.")
+else:
+    print("The given string is not a pangram.")
