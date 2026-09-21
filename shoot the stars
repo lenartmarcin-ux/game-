@@ -1,0 +1,161 @@
+import turtle
+import random
+
+screen = turtle.Screen()
+screen.title('Star Base Defense')
+screen.bgcolor('white')
+screen.setup(width=800, height=600)
+screen.tracer(0)
+
+score = 0
+lives = 5
+game_over = False
+
+bullets = []
+enemies = []
+stars = []
+
+scoreboard = turtle.Turtle()
+scoreboard.hideturtle()
+scoreboard.penup()
+scoreboard.color("white")
+scoreboard.goto(-330, 250)
+
+def update_score():
+    global score, lives
+    scoreboard.clear()
+    scoreboard.write(f"Score: {score}   Lives: {lives}", font=("Arial", 16, "normal"))
+
+for _ in range(80):
+    star = turtle.Turtle()
+    star.hideturtle()
+    star.penup()
+    star.color("white")
+    star.shape("circle")
+    star.shapesize(stretch_wid=0.2, stretch_len=0.2)
+    star.goto(random.randint(-390, 390), random.randint(-290, 290))
+    star.showturtle()
+    stars.append(star)
+
+player = turtle.Turtle()
+player.shape("triangle")
+player.color("cyan")
+player.penup()
+player.setheading(90)
+player.goto(0, -230)
+  
+
+base = turtle.Turtle()
+base.color("#7dd3fc")
+base.penup()
+base.goto(0, -270)
+base.shape("square")
+
+base.sety(-250)
+
+def move_left():
+    if not game_over:
+        x = player.xcor()
+        if x > -360:
+            player.setx(x - 25)
+
+def move_right():
+    if not game_over:
+        x = player.xcor()
+        if x < 360:
+            player.setx(x + 25)
+
+def fire():
+    if game_over:
+        return
+
+    bullet = turtle.Turtle()
+    bullet.shape("circle")
+    bullet.color("yellow")
+    bullet.shapesize(stretch_wid=0.6, stretch_len=1.6)
+    bullet.penup()
+    bullet.speed(0)
+    bullet.goto(player.xcor(), player.ycor() + 25)
+    bullets.append(bullet)
+
+def spawn_enemy():
+    if game_over:
+        return
+
+    enemy = turtle.Turtle()
+    enemy.shape("circle")
+    enemy.color(random.choice(["red", "orange", "pink", "lightgreen", "purple", "blue"]))
+    enemy.shapesize(stretch_wid=2.8, stretch_len=2.8)
+    enemy.penup()
+    enemy.speed(0)
+    enemy.goto(random.randint(-330, 330), 260)
+    enemy.speed_value = random.randint(2, 5)
+    enemy.showturtle()
+    enemies.append(enemy)
+    screen.ontimer(spawn_enemy, random.randint(700, 1100))
+
+def end_game():
+    global game_over
+    game_over = True
+    over_text = turtle.Turtle()
+    over_text.hideturtle()
+    over_text.penup()
+    over_text.color("white")
+    over_text.goto(0, 0)
+    over_text.write("GAME OVER", align="center", font=("Arial", 30, "bold"))
+
+def update_game():
+    global score, lives, game_over
+
+    if game_over:
+        return
+
+    for star in stars:
+        y = star.ycor() - 0.5
+        if y < -300:
+            y = 300
+        star.sety(y)
+
+    for bullet in bullets[:]:
+        bullet.sety(bullet.ycor() + 14)
+        if bullet.ycor() > 300:
+            bullet.hideturtle()
+            bullets.remove(bullet)
+
+    for enemy in enemies[:]:
+        enemy.sety(enemy.ycor() - enemy.speed_value)
+        enemy.showturtle()
+
+        if enemy.ycor() < -280:
+            enemy.hideturtle()
+            enemies.remove(enemy)
+            lives -= 1
+            update_score()
+            if lives <= 0:
+                end_game()
+                return
+
+    for bullet in bullets[:]:
+        for enemy in enemies[:]:
+            if bullet.distance(enemy) < 35:
+                bullet.hideturtle()
+                bullets.remove(bullet)
+                enemy.hideturtle()
+                enemies.remove(enemy)
+                score += 1
+                update_score()
+                break
+
+    if not game_over:
+        screen.ontimer(update_game, 25)
+
+screen.listen()
+screen.onkeypress(move_left, "Left")
+screen.onkeypress(move_right, "Right")
+screen.onkeypress(fire, "space")
+
+update_score()
+spawn_enemy()
+update_game()
+
+screen.mainloop()
