@@ -1,0 +1,44 @@
+
+
+def get_questions():
+	"""Return a list of sample questions.
+
+	Each question is a dict:
+	  - question: str
+	  - choices: list[str]
+	  - answer: int  (index into choices for the correct answer)
+	"""
+	return [
+		{
+			"question": "What is the capital of France?",
+			"choices": ["Paris", "London", "Rome", "Berlin"],
+			"answer": 0,
+		},
+		{
+			"question": "Which planet is known as the Red Planet?",
+			"choices": ["Earth", "Mars", "Jupiter", "Venus"],
+			"answer": 1,
+		},
+		{
+			"question": "What is 9 × 6?",
+			"choices": ["54", "42", "63", "36"],
+			"answer": 0,
+		},
+		{
+			"question": "Which language is this project written in?",
+			"choices": ["Java", "C#", "Python", "JavaScript"],
+			"answer": 2,
+		},
+		{
+			"question": "Which animal is known as 'King of the Jungle'?",
+			"choices": ["Elephant", "Lion", "Tiger", "Giraffe"],
+			"answer": 1,
+		},
+	]
+
+
+if __name__ == "__main__":
+	qs = get_questions()
+	print(f"Loaded {len(qs)} questions")
+
+get_questions()
