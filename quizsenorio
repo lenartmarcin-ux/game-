@@ -1,0 +1,73 @@
+def run_quiz():
+    print("Welcome to the Python Quiz!")
+    name = input("What is your name? ")
+    score = 0
+
+    questions = [
+        {
+            "question": "Which language is this quiz written in?",
+            "choices": ["A. Java", "B. Python", "C. C++", "D. Ruby"],
+            "answer": "B",
+        },
+        {
+            "question": "What does CPU stand for?",
+            "choices": [
+                "A. Central Processing Unit",
+                "B. Computer Power Unit",
+                "C. Central Program Unit",
+                "D. Control Processing Utility",
+            ],
+            "answer": "A",
+        },
+        {
+            "question": "Which planet is known as the Red Planet?",
+            "choices": ["A. Venus", "B. Jupiter", "C. Mars", "D. Mercury"],
+            "answer": "C",
+        },
+        {
+            "question": "Which of these is a Python data type?",
+            "choices": ["A. Integer", "B. House", "C. Pencil", "D. Chair"],
+            "answer": "A",
+        },
+        {
+            "question": "What is 9 + 6?",
+            "choices": ["A. 12", "B. 14", "C. 15", "D. 16"],
+            "answer": "C",
+        },
+    ]
+
+    for i, question in enumerate(questions, start=1):
+        print(f"\nQuestion {i}: {question['question']}")
+        for choice in question["choices"]:
+            print(choice)
+
+        answer = input("Choose A, B, C, or D: ").strip().upper()
+
+        while answer not in ["A", "B", "C", "D"]:
+            print("Please enter A, B, C, or D only.")
+            answer = input("Choose A, B, C, or D: ").strip().upper()
+
+        if answer == question["answer"]:
+            print("Correct! ")
+            score += 1
+        else:
+            print(f"Wrong! The correct answer is {question['answer']}. ")
+
+    print(f"\n{name}, your final score is {score}/{len(questions)}")
+
+    if score == len(questions):
+        print(" You got every answer right!")
+    elif score >= len(questions) // 2:
+        print("You did well.")
+    else:
+        print("Nice try.")
+
+    again = input("\nWould you like to play again? (y/n): ").strip().lower()
+    if again == "y":
+        run_quiz()
+    else:
+        print("Thanks for playing!")
+
+
+if __name__ == "__main__":
+    run_quiz()
