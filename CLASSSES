@@ -1,0 +1,35 @@
+    brand = "wolkswagen"
+    model = "golf"
+    color = "red"
+    def display (self):
+        print("most used car in Amsterdam is",self.brand)
+        print("most used model in Amsterdam is",self.model)
+        print("most used color in Amsterdam is",self.color)
+
+obj1 = Car()
+#obj1.display()
+ob2 = Car()
+#ob2.display()
+
+class Students:
+    name = "Jan"
+    grade = 80
+    age = 10
+    def display(self):
+        print("Student name is",self.name)
+        print("Student grade is",self.grade)
+        print("Student age is",self.age)
+
+obj3 = Students()
+
+class Animal:
+    name = "seagull"
+    color = "white"
+    sound = "kraa"
+    def display(self):
+        print("Animal name is",self.name)
+        print("seagull color is",self.color)
+        print("seagull sound is",self.sound)
+
+obj4 = Animal()
+obj4.display()
