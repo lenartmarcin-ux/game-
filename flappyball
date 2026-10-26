@@ -1,0 +1,65 @@
+import pygame 
+import random
+import time 
+
+pygame.init()
+
+screen = pygame.display.set_mode((600,800))
+clock = pygame.time.Clock()
+
+class Ball:
+    def __init__(self):
+        self.x = 100
+        self.y = 250
+        self.speed = 0
+    def move(self):
+        self.speed += 0.5
+        self.y += self.speed
+    def jump(self):
+        self.speed = -8
+    def draw(self):
+        pygame.draw.circle(screen,"red",(self.x,int(self.y)),15)
+
+ball = Ball()
+gap = random.randint(150,350)
+pipe_x = 600
+score = 0
+running = True
+
+while running:
+    screen.fill("black")
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                ball.jump()
+
+    ball.move()
+    pipe_x -= 3
+    if pipe_x < -60:
+        pipe_x = 600
+        gap = random.randint(150,350)
+        score += 1 
+        top_pipe = pygame.Rect(pipe_x,0,60,gap - 70)
+        bottom_pipe = pygame.Rect(pipe_x, gap + 70, 60, 500)
+        ball_rect = pygame.Rect(ball.x - 15, ball.y - 15, 30, 30)
+        pygame.draw.rect(screen,"white",top_pipe)
+        pygame.draw.rect(screen,"white",bottom_pipe)
+        ball.draw()
+
+if ball_rect.colliderect(top_pipe) or ball_rect.colliderect(bottom_pipe):
+        running = False
+
+if ball.y < 0 or ball.y > 500:
+        running = False
+
+font = pygame.font.SysFont(None, 35)
+text = font.render("Score: " + str(score), True, "white")
+screen.blit(text, (20, 20))
+
+pygame.display.update()
+clock.tick(60)
+
+pygame.quit()
