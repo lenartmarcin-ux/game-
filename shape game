@@ -1,0 +1,35 @@
+import pygame
+
+pygame.init()
+
+screen = pygame.display.set_mode((600, 500))
+pygame.display.set_caption("Shapes and Events")
+
+class Circle:
+    def __init__(self):
+        self.radius = 30
+
+    def draw(self):
+        pygame.draw.circle(screen, "blue", (300, 250), self.radius)
+
+circle = Circle()
+running = True
+
+while running:
+    screen.fill("black")
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            circle.radius += 10
+
+        if event.type == pygame.MOUSEBUTTONUP:
+            circle.radius += 90
+
+    circle.draw()
+    pygame.display.update()
+
+pygame.quit()
+
