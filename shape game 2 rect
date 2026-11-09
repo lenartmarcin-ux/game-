@@ -1,0 +1,28 @@
+class Rectangle:
+    def __init__(self):
+        self.width = 60
+        self.height = 60
+
+    def draw(self):
+        pygame.draw.rect(screen, "blue", (270, 220, self.width, self.height))
+
+rectangle = Rectangle()
+running = True
+
+while running:
+    screen.fill("black")
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            rectangle.width -= 20
+            rectangle.height -= 20
+
+        if event.type == pygame.MOUSEBUTTONUP:
+            rectangle.width += 30
+            rectangle.height += 30
+
+    rectangle.draw()
+    pygame.display.update()
