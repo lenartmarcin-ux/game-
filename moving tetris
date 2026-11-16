@@ -1,0 +1,36 @@
+import pygame
+from pygame.locals import*
+import time
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((600, 500))
+pygame.display.set_caption("Controling keys")
+
+tetris = pygame.image.load("tetris.png")
+tetris = pygame.transform.scale(tetris, (50, 70))
+
+x = 275
+y = 200
+speed = 15
+
+running = True 
+
+while running:
+    screen.fill("Black") 
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == KEYDOWN:
+            if event.key == K_LEFT:
+                x -= speed
+            if event.key == K_RIGHT:
+                x += speed
+            if event.key == K_UP:
+                y -= speed
+            if event.key == K_DOWN:
+                y += speed
+    screen.blit(tetris,(x,y))
+    pygame.display.update()
+
+pygame.quit()
